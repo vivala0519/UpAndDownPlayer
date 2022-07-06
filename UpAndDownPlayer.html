@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <link rel="stylesheet" type="text/css" href="../style.css">
+    </head>
+    <body>
+        <div id="app">
+            <h2>10턴안에 숫자 맞추기</h2>
+            <button id="startButton" onclick="clickStart()">시작하기</button>
+            <div class="wrapper">
+                <div class="main">
+                    <input id="numInput"/>
+                    <button class="inputButton" onclick="clickInputButton()">입력</button>
+                    <div id="result"></div>
+                </div>
+                <div class="turn">
+                    <div id="nowTurn">
+                        현재 : 0
+                    </div>
+                    <br/>
+                    <div id="leftTurn">
+                        남은 턴 : 10
+                    </div>
+                </div>
+                <div class="history">
+                    HISTORY
+                    <div id="historyContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // start: false - 시작, true - 다시 시작
+            // nowTurn: 현재 턴
+            // leftTurn: 남은 턴
+            // target: 랜덤으로 생성된 1 ~ 100 숫자
+            let start = false;
+            let nowTurn = 0;
+            let leftTurn = 10; 
+            let target = Math.floor(Math.random() * 100) + 1;
+            console.log(target);
+
+            // 시작 버튼 Function
+            // '시작' 버튼 클릭 시 '다시 시작' 버튼으로 바뀌고 화면에서 숨겨진다.
+            // 게임이 종료되고 '다시 시작' 버튼이 생기며 다시 시작을 누르면 랜덤숫자가 재생성되며 모든 ui가 초기화 된다.
+            const clickStart = () => {
+                if(start === false){
+                    start = true;
+                    document.getElementById('startButton').innerText = '다시 시작';
+                    $('.wrapper').css('visibility', 'visible');
+                } else{
+                    target = Math.floor(Math.random() * 100) + 1;
+                    console.log(target);
+                    document.getElementById('numInput').value = null;
+                    $('#result').empty();
+                    $('#historyContent').empty();
+                    $('#nowTurn').empty();
+                    $('#leftTurn').empty();
+                    $('#nowTurn').append(`현재 : 0`);
+                    $('#leftTurn').append(`남은 턴 : 10`);
+                    $("#numInput").removeAttr("disabled");
+                    $('.inputButton').css('visibility', 'visible');
+                }
+                
+                $('#startButton').css('visibility', 'hidden');
+            }
+
+            // 숫자 입력버튼 Function
+            // 입력할 때마다 턴이 증가하고 남은 턴이 줄어들며, 히스토리에 입력했던 숫자가 기록된다.
+            const clickInputButton = () => {
+                const num = document.getElementById('numInput').value;
+                nowTurn += 1;
+                leftTurn = 10 - nowTurn;
+
+                $('#nowTurn').empty();
+                $('#leftTurn').empty();
+                $('#nowTurn').append(`현재 : <span>${nowTurn}</span>`);
+                $('#leftTurn').append(`남은 턴 : <span>${leftTurn}</span>`);
+                $('#historyContent').append(`<p>${nowTurn}턴 ${num}</p>`);
+                
+                // 마지막 턴까지 맞추지 못했을 때
+                if(leftTurn === 0){
+                    alert('실패ㅠ');
+                    $("#numInput").attr("disabled", true);
+                    $('.inputButton').css('visibility', 'hidden');
+                } else{
+                    $('#result').empty();
+                    if(num < target){                               // 목표숫자보다 작을 때
+                        $('#result').append(`<p>👍</p>`);
+                    } else if(num > target) {                       // 목표숫자보다 클 때
+                        $('#result').append(`<p>👎</p>`);
+                    } else{                                         // 정답일 때
+                        $("#numInput").attr('disabled', true); 
+                        $('#startButton').css('visibility', 'visible');
+                        $('#result').append(`<p>👏</p>`);
+                        $('.inputButton').css('visibility', 'hidden');
+                        alert('👏정답!!👏');
+                    }
+                }
+
+                document.getElementById('numInput').value = null;   // input 초기화
+            }
+        </script>
+    </body>
+</html>
