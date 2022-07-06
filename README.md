@@ -18,3 +18,8 @@
     - [x]  ~~이후에 플레이어가 다른 숫자를 제출하면 게임이 망가질 수 있으므로 제출을 막기.~~
     - [x]  ~~게임을 다시 시작할 수 있는 컨트롤 보여주기.~~
 - [x]  ~~게임을 다시 시작하면 게임 로직과 UI를 완전히 초기화하고 1번으로 돌아가기.~~
+
+![Screenshot](https://user-images.githubusercontent.com/42686784/177481797-ee96a13b-afd8-4d05-a8fc-2d3d3dc5843f.png)<br/><br/>
+![Screenshot2](https://user-images.githubusercontent.com/42686784/177481801-1a02fc4c-83f0-4e76-a085-679635079918.png)<br/><br/>
+![Screenshot3](https://user-images.githubusercontent.com/42686784/177481804-42582c92-6d6b-465f-9f53-98557b28b770.png)<br/><br/>
+![제목 없음](https://user-images.githubusercontent.com/42686784/177481937-c6f4fe5a-21ce-444a-bc8d-31b903d1ddcb.png)
